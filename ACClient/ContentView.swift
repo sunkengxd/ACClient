@@ -1,9 +1,13 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var router = Router()
     var body: some View {
-        NavigationStack {
-            NoteScreen()
+        RoutedContent(router: router) {
+            AuthorizationView()
+                .navigationDestination(for: AuthorizationData.self) { data in
+                    NoteScreen(authorizationData: data)
+                }
         }
     }
 }
