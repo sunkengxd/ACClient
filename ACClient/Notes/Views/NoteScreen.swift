@@ -2,11 +2,15 @@ import SwiftUI
 
 struct NoteScreen: View {
 
-    @State private var notes = Notes()
+    @State private var notes: Notes
 
     @State private var showError = false
     @State private var newNote = ""
 
+    init(authorizationData: AuthorizationData) {
+        notes = .init(authorizationData: authorizationData)
+    }
+    
     var body: some View {
         List {
             if let error = notes.error {
@@ -50,7 +54,8 @@ struct NoteScreen: View {
 }
 
 #Preview {
+    let data = AuthorizationData(networkProtocol: .http, baseURL: "localhost:8080")
     NavigationStack {
-        NoteScreen()
+        NoteScreen(authorizationData: data)
     }
 }
